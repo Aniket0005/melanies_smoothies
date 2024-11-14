@@ -1,6 +1,7 @@
 # Import python packages
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
+from snowflake.snowpark.session import Session ### extra
 from snowflake.snowpark.functions import col
 
 # Write directly to the app
@@ -14,6 +15,13 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be: ', name_on_order)
  
 session = get_active_session()
+
+# If no session is found, create one explicitly
+if session is None:     ### extra
+    snowflake_connection = st.secrets["connections.snowflake"]   ### extra
+    session = Session.builder.configs(snowflake_connection).create()  ### extra
+
+
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 
