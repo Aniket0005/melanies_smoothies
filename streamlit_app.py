@@ -12,7 +12,10 @@ st.write(
 
 name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be: ', name_on_order)
- 
+
+if session is None:
+    get_active_session = Session.builder.configs(snowflake_connection).create()
+    
 session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
