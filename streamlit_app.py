@@ -2,6 +2,23 @@ import streamlit as st
 from snowflake.snowpark import Session
 from snowflake.snowpark.functions import col
 
+import streamlit as st
+
+# Access Snowflake credentials
+snowflake_connection = st.secrets["connections.snowflake"]
+
+# Use the credentials in your Snowflake connection setup
+account = snowflake_connection["account"]
+user = snowflake_connection["user"]
+password = snowflake_connection["password"]
+role = snowflake_connection["role"]
+warehouse = snowflake_connection["warehouse"]
+database = snowflake_connection["database"]
+schema = snowflake_connection["schema"]
+
+# You can now use these details to connect to Snowflake
+
+
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
 st.write(
